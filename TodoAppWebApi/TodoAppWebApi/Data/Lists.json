@@ -1,0 +1,25 @@
+﻿{
+  "lists": [
+    {
+      "id": 1,
+      "caption": "ma sheba",
+      "description": "shopping",
+      "color": "red",
+      "icon": "home"
+    },
+    {
+      "id": 2,
+      "caption": "ma sheba2",
+      "description": "stam mashu lirot2",
+      "color": "green",
+      "icon": "home"
+    },
+    {
+      "id": 3,
+      "caption": "ma sheba 3",
+      "description": "stam mashu lirot 3",
+      "color": "blue",
+      "icon": "home"
+    }
+  ]
+}

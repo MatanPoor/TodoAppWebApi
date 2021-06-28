@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "caption": "milk",
+      "listId": 1,
+      "isCompleted": false
+    },
+    {
+      "id": 2,
+      "caption": "sugar",
+      "listId": 1,
+      "isCompleted": false
+    },
+    {
+      "id": 3,
+      "caption": "ma sheba 2",
+      "listId": 2,
+      "isCompleted": false
+    },
+    {
+      "id": 4,
+      "caption": "ma sheba 3",
+      "listId": 3,
+      "isCompleted": true
+    }
+  ]
+}
