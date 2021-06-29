@@ -30,29 +30,35 @@ namespace TodoAppWebApi.Controllers
             return Ok(response);
         }
 
-        // GET api/<ListController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<List>> GetListById(string id)
         {
-            return "value";
+            var result = await _todosAppRepository.GetListById(int.Parse(id));
+            var response = ListMapper.Map(result);
+            return Ok(response);
         }
 
         // POST api/<ListController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("")]
+        public async Task<ActionResult<List>> AddList(List list)
         {
+            var result = await _todosAppRepository.AddList(list);
+            return Ok(result);
         }
 
         // PUT api/<ListController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("")]
+        public async Task<ActionResult<List>> EditList(List list)
         {
+            var result = await _todosAppRepository.EditList(list);
+            return Ok(result);
         }
 
         // DELETE api/<ListController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _todosAppRepository.DeleteList(id);
         }
     }
 }

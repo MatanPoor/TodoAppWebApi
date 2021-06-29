@@ -21,12 +21,12 @@ namespace TodoAppWebApi.Controllers
         {
             _todosAppRepository = todosAppRepository;
         }
-        
+
         // GET: api/<ItemsControler>
-        [HttpGet("items/{id}")]
-        public async Task<ActionResult<List<Item>>> GetItems(string id)
+        [HttpGet("{listid}")]
+        public async Task<ActionResult<List<Item>>> GetItemsById(string listid)
         {
-            var result = await _todosAppRepository.GetItems(int.Parse(id));
+            var result = await _todosAppRepository.GetItemsById(int.Parse(listid));
             var response = result.Select(x => ItemMapper.Map(x)).ToList();
             return Ok(response);
         }
@@ -41,21 +41,26 @@ namespace TodoAppWebApi.Controllers
 
 
         // POST api/<ItemsControler>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("")]
+        public async Task<ActionResult<Item>> AddItem(Item item)
         {
+            var result = await _todosAppRepository.AddItem(item);
+            return Ok(result);
         }
 
         // PUT api/<ItemsControler>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("")]
+        public async Task<ActionResult<Item>> EditItem(Item item)
         {
+            var result = await _todosAppRepository.EditItem(item);
+            return Ok(result);
         }
 
         // DELETE api/<ItemsControler>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteItems(int id)
         {
+            _todosAppRepository.DeleteItems(id);
         }
     }
 }

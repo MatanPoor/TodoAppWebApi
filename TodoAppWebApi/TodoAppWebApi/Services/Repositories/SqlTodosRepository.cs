@@ -22,13 +22,22 @@ namespace TodoAppWebApi.Services.Repositories
             return items;
         }
 
-        public async Task<List<Item>> GetItems(int id)
+        public async Task<List<Item>> GetItemsById(int listid)
         {
             var items = await _toDoAppDataContext.Items
-                .Select(x=>x)
-                .Where(x=>x.listId==id)
+                .Select(x => x)
+                .Where(x => x.listId == listid)
                 .ToListAsync();
             return items;
+        }
+
+        public async Task<List> GetListById(int id)
+        {
+            var lists = await _toDoAppDataContext.Lists
+                .Select(x => x)
+                .Where(x => x.id == id)
+                .ToListAsync();
+            return lists[0];
         }
 
         public async Task<List<Item>> GetActiveItems()
@@ -39,5 +48,59 @@ namespace TodoAppWebApi.Services.Repositories
                 .ToListAsync();
             return items;
         }
+
+        public async Task<List> AddList(List list)
+        {
+            _toDoAppDataContext.Lists.Add(list);
+            await _toDoAppDataContext.SaveChangesAsync();
+            return list;
+        }
+
+        public async Task<List> EditList(List list)
+        {
+            _toDoAppDataContext.Lists.Update(list);
+            await _toDoAppDataContext.SaveChangesAsync();
+            return list;
+        }
+
+        public async Task<Item> EditItem(Item item)
+        {
+            _toDoAppDataContext.Items.Update(item);
+            await _toDoAppDataContext.SaveChangesAsync();
+            return item;
+        }
+        
+        public async Task<Item> AddItem(Item item)
+        {
+            _toDoAppDataContext.Items.Add(item);
+            await _toDoAppDataContext.SaveChangesAsync();
+            return item;
+        }
+
+        public void DeleteItems(int id)
+        {
+            var items = _toDoAppDataContext.Items
+            .Select(x => x)
+            .Where(x => x.listId == id);
+
+            foreach (var item in items)
+            {
+                _toDoAppDataContext.Items.Remove(item);
+            }
+            _toDoAppDataContext.SaveChangesAsync();
+        }
+
+        public void DeleteList(int id)
+        {
+            var lists = _toDoAppDataContext.Lists
+            .Select(x => x)
+            .Where(x => x.id == id);
+            foreach (var list in lists)
+            {
+                _toDoAppDataContext.Lists.Remove(list);
+            }
+            _toDoAppDataContext.SaveChangesAsync();
+        }
+
     }
 }
